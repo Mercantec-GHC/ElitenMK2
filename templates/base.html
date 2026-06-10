@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <title>ElitenMK2 Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <nav>
+    <a href="/">Hjem</a>
+    <a href="/brugere">Brugere</a>
+    <a href="/grupper">Grupper</a>
+    <a href="/server">Server</a>
+  </nav>
+  <main>{% block content %}{% endblock %}</main>
+</body>
+</html>

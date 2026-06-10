@@ -1,0 +1,12 @@
+body { font-family: Arial; margin: 0; background: #f4f6fb; }
+nav { background: #1A3A6B; padding: 12px 24px; }
+nav a { color: white; margin-right: 20px; text-decoration: none; }
+nav a:hover { text-decoration: underline; }
+main { padding: 24px; }
+h1 { color: #1A3A6B; }
+table { border-collapse: collapse; width: 100%; background: white; }
+th { background: #2B5797; color: white; padding: 10px; text-align: left; }
+td { padding: 8px 10px; border-bottom: 1px solid #ddd; }
+tr:hover { background: #eef2fb; }
+.aktiv { color: green; font-weight: bold; }
+.inaktiv { color: red; }

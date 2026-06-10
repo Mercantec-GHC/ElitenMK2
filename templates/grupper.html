@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Grupper ({{ groups | length }})</h1>
+{% for g in groups %}
+<h2>{{ g.navn }}</h2>
+<p>{{ g.beskrivelse }}</p>
+<ul>
+  {% for m in g.medlemmer %}<li>{{ m }}</li>{% endfor %}
+</ul>
+{% endfor %}
+{% endblock %}

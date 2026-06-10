@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Serverinfo</h1>
+<table>
+  <tr><th>Parameter</th><th>Værdi</th></tr>
+  <tr><td>Hostname</td><td>{{ info.hostname }}</td></tr>
+  <tr><td>IP-adresse</td><td>{{ info.ip }}</td></tr>
+  <tr><td>OS</td><td>{{ info.os }}</td></tr>
+  <tr><td>Version</td><td>{{ info.version }}</td></tr>
+</table>
+{% endblock %}

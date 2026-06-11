@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Brugere ({{ users | length }})</h1>
+<table>
+  <tr>
+    <th>Navn</th>
+    <th>Brugernavn</th>
+    <th>Afdeling</th>
+    <th>Status</th>
+  </tr>
+  {% for u in users %}
+  <tr>
+    <td>{{ u.navn }}</td>
+    <td>{{ u.brugernavn }}</td>
+    <td>{{ u.afdeling }}</td>
+    <td class="{{ 'aktiv' if u.aktiv else 'inaktiv' }}">{{ 'Aktiv' if u.aktiv else 'Inaktiv' }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

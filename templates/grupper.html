@@ -1,11 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1>Grupper ({{ groups | length }})</h1>
-{% for g in groups %}
-<h2>{{ g.navn }}</h2>
-<p>{{ g.beskrivelse }}</p>
-<ul>
-  {% for m in g.medlemmer %}<li>{{ m }}</li>{% endfor %}
-</ul>
-{% endfor %}
+<input type="text" id="search" data-table="gruppe-tabel" placeholder="Søg gruppe...">
+<table id="gruppe-tabel">
+  <tr><th>Navn</th><th>Beskrivelse</th><th>Medlemmer</th></tr>
+  {% for g in groups %}
+  <tr>
+    <td>{{ g.navn }}</td>
+    <td>{{ g.beskrivelse }}</td>
+    <td>{{ g.medlemmer | join(', ') }}</td>
+  </tr>
+  {% endfor %}
+</table>
+<script src="{{ url_for('static', filename='search.js') }}"></script>
 {% endblock %}

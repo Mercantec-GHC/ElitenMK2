@@ -2,6 +2,7 @@ from flask import Flask, render_template
 from ldap3 import Server, Connection, ALL, SUBTREE
 import socket
 import platform
+from datetime import datetime, timezone
 
 app = Flask(__name__)
 
@@ -12,6 +13,13 @@ LDAP_PASSWORD = 'Eliten1234!'
 BASE_DN = 'DC=eliten,DC=local'
 USERS_OU = 'OU=Brugere,OU=Eliten,DC=eliten,DC=local'
 GROUPS_OU = 'OU=Grupper,OU=Eliten,DC=eliten,DC=local'
+
+
+def filetime_to_str(ft):
+    if not ft or ft == 0:
+        return '-'
+    unix_ts = (int(ft) - 116444736000000000) / 10000000
+    return datetime.fromtimestamp(unix_ts, tz=timezone.utc).strftime('%d-%m-%Y %H:%M')
 
 
 def get_connection():
@@ -32,16 +40,18 @@ def brugere():
         search_base=USERS_OU,
         search_filter='(objectClass=user)',
         search_scope=SUBTREE,
-        attributes=['cn', 'sAMAccountName', 'department', 'userAccountControl']
+        attributes=['cn', 'sAMAccountName', 'department', 'userAccountControl', 'lastLogonTimestamp']
     )
     users = []
     for entry in conn.entries:
         aktiv = (int(entry.userAccountControl.value) & 2) == 0
+        last_logon = filetime_to_str(entry.lastLogonTimestamp.value) if entry.lastLogonTimestamp else '-'
         users.append({
             'navn': str(entry.cn),
             'brugernavn': str(entry.sAMAccountName),
             'afdeling': str(entry.department) if entry.department else '-',
-            'aktiv': aktiv
+            'aktiv': aktiv,
+            'sidst_logget_ind': last_logon
         })
     conn.unbind()
     return render_template('brugere.html', users=users)

@@ -8,6 +8,7 @@
     <th>Brugernavn</th>
     <th>Afdeling</th>
     <th>Status</th>
+    <th>Sidst logget ind</th>
   </tr>
   {% for u in users %}
   <tr>
@@ -15,6 +16,7 @@
     <td>{{ u.brugernavn }}</td>
     <td>{{ u.afdeling }}</td>
     <td class="{{ 'aktiv' if u.aktiv else 'inaktiv' }}">{{ 'Aktiv' if u.aktiv else 'Inaktiv' }}</td>
+    <td>{{ u.sidst_logget_ind }}</td>
   </tr>
   {% endfor %}
 </table>

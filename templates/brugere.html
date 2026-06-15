@@ -12,7 +12,7 @@
   </tr>
   {% for u in users %}
   <tr>
-    <td>{{ u.navn }}</td>
+    <td><a href="/bruger/{{ u.brugernavn }}">{{ u.navn }}</a></td>
     <td>{{ u.brugernavn }}</td>
     <td>{{ u.afdeling }}</td>
     <td class="{{ 'aktiv' if u.aktiv else 'inaktiv' }}">{{ 'Aktiv' if u.aktiv else 'Inaktiv' }}</td>

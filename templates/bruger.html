@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ user.navn }}</h1>
+<table>
+  <tr><th>Felt</th><th>Værdi</th></tr>
+  <tr><td>Brugernavn</td><td>{{ user.brugernavn }}</td></tr>
+  <tr><td>Afdeling</td><td>{{ user.afdeling }}</td></tr>
+  <tr><td>E-mail</td><td>{{ user.mail }}</td></tr>
+  <tr><td>Status</td><td class="{{ 'aktiv' if user.aktiv else 'inaktiv' }}">{{ 'Aktiv' if user.aktiv else 'Inaktiv' }}</td></tr>
+</table>
+
+<h2>Gruppemedlemskaber ({{ user.grupper | length }})</h2>
+{% if user.grupper %}
+<ul>
+  {% for g in user.grupper %}
+  <li>{{ g }}</li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>Ingen grupper.</p>
+{% endif %}
+
+<a href="/brugere">← Tilbage til brugere</a>
+{% endblock %}

@@ -11,6 +11,9 @@
     <a href="/brugere">Brugere</a>
     <a href="/grupper">Grupper</a>
     <a href="/server">Server</a>
+    {% if current_user.is_authenticated %}
+    <span style="float:right">{{ current_user.id }} | <a href="/logout">Log ud</a></span>
+    {% endif %}
   </nav>
   <main>{% block content %}{% endblock %}</main>
 </body>

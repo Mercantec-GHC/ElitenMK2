@@ -7,5 +7,26 @@
   <tr><td>IP-adresse</td><td>{{ info.ip }}</td></tr>
   <tr><td>OS</td><td>{{ info.os }}</td></tr>
   <tr><td>Version</td><td>{{ info.version }}</td></tr>
+  <tr><td>Uptime</td><td>{{ info.uptime }}</td></tr>
+  <tr><td>CPU</td><td>{{ info.cpu }}%</td></tr>
+  <tr><td>RAM</td><td>{{ info.ram_brugt }} / {{ info.ram_total }} GB ({{ info.ram_pct }}%)</td></tr>
+  <tr><td>Disk</td><td>{{ info.disk_brugt }} / {{ info.disk_total }} GB ({{ info.disk_pct }}%)</td></tr>
 </table>
+
+<h2>Docker-containere</h2>
+{% if info.docker %}
+<table>
+  <tr><th>Navn</th><th>Image</th><th>Status</th><th>Porte</th></tr>
+  {% for c in info.docker %}
+  <tr>
+    <td>{{ c.navn }}</td>
+    <td>{{ c.image }}</td>
+    <td>{{ c.status }}</td>
+    <td>{{ c.porte }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p>Ingen kørende Docker-containere (eller Docker ikke tilgængelig).</p>
+{% endif %}
 {% endblock %}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <title>Log ind – ElitenMK2</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main>
+    <h1>Log ind</h1>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for msg in messages %}
+          <p class="inaktiv">{{ msg }}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    <form method="post">
+      <label>Brugernavn<br>
+        <input type="text" name="username" autofocus required>
+      </label><br><br>
+      <label>Adgangskode<br>
+        <input type="password" name="password" required>
+      </label><br><br>
+      <button type="submit">Log ind</button>
+    </form>
+  </main>
+</body>
+</html>

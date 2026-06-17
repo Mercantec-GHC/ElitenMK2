@@ -10,4 +10,4 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Deploy
-        run: /root/ElitenMK2-main/deploy.sh
+        run: sudo /root/ElitenMK2-main/deploy.sh

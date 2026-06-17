@@ -69,20 +69,20 @@ def login():
 
 
 @app.route('/logout')
-@login_required
+
 def logout():
     logout_user()
     return redirect(url_for('login'))
 
 
 @app.route('/')
-@login_required
+
 def index():
     return render_template('index.html')
 
 
 @app.route('/brugere')
-@login_required
+
 def brugere():
     conn = get_connection()
     conn.search(
@@ -107,7 +107,7 @@ def brugere():
 
 
 @app.route('/bruger/<username>')
-@login_required
+
 def bruger_detail(username):
     conn = get_connection()
     conn.search(
@@ -139,7 +139,7 @@ def bruger_detail(username):
 
 
 @app.route('/grupper')
-@login_required
+
 def grupper():
     conn = get_connection()
     conn.search(
@@ -186,7 +186,7 @@ def get_docker_containers():
 
 
 @app.route('/server')
-@login_required
+
 def server():
     boot_time = datetime.fromtimestamp(psutil.boot_time(), tz=timezone.utc)
     now = datetime.now(tz=timezone.utc)

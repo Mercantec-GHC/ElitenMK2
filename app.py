@@ -37,8 +37,10 @@ GROUPS_OU = 'OU=Grupper,OU=Eliten,DC=eliten,DC=local'
 
 
 def filetime_to_str(ft):
-    if not ft or ft == 0:
+    if ft is None:
         return '-'
+    if isinstance(ft, datetime):
+        return ft.strftime('%d-%m-%Y %H:%M')
     unix_ts = (int(ft) - 116444736000000000) / 10000000
     return datetime.fromtimestamp(unix_ts, tz=timezone.utc).strftime('%d-%m-%Y %H:%M')
 

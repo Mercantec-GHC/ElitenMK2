@@ -139,6 +139,47 @@ h2 {
   font-weight: 600;
 }
 
+/* CHARTS */
+.charts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.chart-card {
+  background: #111;
+  border-radius: 8px;
+  padding: 16px;
+  overflow: hidden;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12px;
+}
+
+.chart-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #444;
+  font-weight: 600;
+}
+
+.chart-value {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.chart-wrap {
+  height: 80px;
+  position: relative;
+}
+
 /* SEARCH INPUT */
 input[type="text"],
 input[type="password"] {

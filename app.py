@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from ldap3 import Server, Connection, ALL, SUBTREE, SIMPLE, AUTO_BIND_NO_TLS
 from ldap3.core.exceptions import LDAPException
@@ -210,6 +210,16 @@ def server():
         'docker': get_docker_containers()
     }
     return render_template('server.html', info=info)
+
+
+@app.route('/api/server-stats')
+def server_stats():
+    disk = psutil.disk_usage('/')
+    return jsonify({
+        'cpu': psutil.cpu_percent(interval=0.2),
+        'ram': psutil.virtual_memory().percent,
+        'disk': disk.percent
+    })
 
 
 if __name__ == '__main__':

@@ -6,15 +6,31 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <nav>
-    <a href="/">Hjem</a>
-    <a href="/brugere">Brugere</a>
-    <a href="/grupper">Grupper</a>
-    <a href="/server">Server</a>
-    {% if current_user.is_authenticated %}
-    <span style="float:right">{{ current_user.id }} | <a href="/logout">Log ud</a></span>
-    {% endif %}
-  </nav>
-  <main>{% block content %}{% endblock %}</main>
+  <div class="site-wrap">
+    <nav class="site-nav">
+      <div class="nav-header">Eliten<span>MK2</span></div>
+      <ul>
+        <li class="{{ 'active' if request.endpoint == 'index' else '' }}">
+          <a href="/">Hjem</a>
+        </li>
+        <li class="{{ 'active' if request.endpoint in ['brugere', 'bruger_detail'] else '' }}">
+          <a href="/brugere">Brugere</a>
+        </li>
+        <li class="{{ 'active' if request.endpoint == 'grupper' else '' }}">
+          <a href="/grupper">Grupper</a>
+        </li>
+        <li class="{{ 'active' if request.endpoint == 'server' else '' }}">
+          <a href="/server">Server</a>
+        </li>
+      </ul>
+      {% if current_user.is_authenticated %}
+      <div class="nav-footer">
+        Logget ind som <strong>{{ current_user.id }}</strong><br>
+        <a href="/logout">Log ud</a>
+      </div>
+      {% endif %}
+    </nav>
+    <main>{% block content %}{% endblock %}</main>
+  </div>
 </body>
 </html>

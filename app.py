@@ -212,15 +212,5 @@ def server():
     return render_template('server.html', info=info)
 
 
-@app.route('/api/server-stats')
-def server_stats():
-    disk = psutil.disk_usage('/')
-    return jsonify({
-        'cpu': psutil.cpu_percent(interval=0.2),
-        'ram': psutil.virtual_memory().percent,
-        'disk': disk.percent
-    })
-
-
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=False)

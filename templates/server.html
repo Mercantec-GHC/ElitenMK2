@@ -2,30 +2,6 @@
 {% block content %}
 <h1>Serverinfo</h1>
 
-<div class="charts">
-  <div class="chart-card">
-    <div class="chart-header">
-      <span class="chart-label">CPU</span>
-      <span class="chart-value" id="cpu-pct">—</span>
-    </div>
-    <div class="chart-wrap"><canvas id="cpu-chart"></canvas></div>
-  </div>
-  <div class="chart-card">
-    <div class="chart-header">
-      <span class="chart-label">RAM</span>
-      <span class="chart-value" id="ram-pct">—</span>
-    </div>
-    <div class="chart-wrap"><canvas id="ram-chart"></canvas></div>
-  </div>
-  <div class="chart-card">
-    <div class="chart-header">
-      <span class="chart-label">Disk</span>
-      <span class="chart-value" id="disk-pct">—</span>
-    </div>
-    <div class="chart-wrap"><canvas id="disk-chart"></canvas></div>
-  </div>
-</div>
-
 <h2>System</h2>
 <table>
   <tr><th>Parameter</th><th>Værdi</th></tr>
@@ -34,8 +10,9 @@
   <tr><td>OS</td><td>{{ info.os }}</td></tr>
   <tr><td>Version</td><td>{{ info.version }}</td></tr>
   <tr><td>Uptime</td><td>{{ info.uptime }}</td></tr>
-  <tr><td>RAM</td><td>{{ info.ram_brugt }} / {{ info.ram_total }} GB</td></tr>
-  <tr><td>Disk</td><td>{{ info.disk_brugt }} / {{ info.disk_total }} GB</td></tr>
+  <tr><td>CPU</td><td>{{ info.cpu }}%</td></tr>
+  <tr><td>RAM</td><td>{{ info.ram_brugt }} / {{ info.ram_total }} GB ({{ info.ram_pct }}%)</td></tr>
+  <tr><td>Disk</td><td>{{ info.disk_brugt }} / {{ info.disk_total }} GB ({{ info.disk_pct }}%)</td></tr>
 </table>
 
 <h2>Docker-containere</h2>
@@ -54,8 +31,4 @@
 {% else %}
 <p>Ingen kørende Docker-containere (eller Docker ikke tilgængelig).</p>
 {% endif %}
-{% endblock %}
-
-{% block scripts %}
-<script src="{{ url_for('static', filename='server.js') }}"></script>
 {% endblock %}

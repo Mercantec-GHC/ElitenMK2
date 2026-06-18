@@ -7,44 +7,47 @@ const diskData = Array(MAX_POINTS).fill(null);
 function drawSparkline(canvasId, data, color) {
     const canvas = document.getElementById(canvasId);
     if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    const w = canvas.clientWidth;
-    const h = canvas.clientHeight;
+
+    const wrapper = canvas.parentElement;
+    const w = wrapper.offsetWidth  || 300;
+    const h = wrapper.offsetHeight || 80;
+
     canvas.width  = w;
     canvas.height = h;
+
+    const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, w, h);
 
     const filled = data.filter(v => v !== null);
     if (filled.length < 2) return;
 
     const step = w / (MAX_POINTS - 1);
+    const scaleY = val => h - (val / 100) * (h - 6) - 3;
 
-    // Fill area
+    const firstIdx = data.indexOf(filled[0]);
+    const lastIdx  = data.map((v, i) => v !== null ? i : -1).filter(i => i >= 0).pop();
+
+    // Filled area
     ctx.beginPath();
-    let first = true;
+    let moved = false;
     data.forEach((val, i) => {
         if (val === null) return;
-        const x = i * step;
-        const y = h - (val / 100) * (h - 4) - 2;
-        if (first) { ctx.moveTo(x, y); first = false; }
-        else ctx.lineTo(x, y);
+        if (!moved) { ctx.moveTo(i * step, scaleY(val)); moved = true; }
+        else ctx.lineTo(i * step, scaleY(val));
     });
-    const lastIdx = data.map((v, i) => v !== null ? i : -1).filter(i => i >= 0).pop();
     ctx.lineTo(lastIdx * step, h);
-    ctx.lineTo(data.indexOf(filled[0]) * step, h);
+    ctx.lineTo(firstIdx * step, h);
     ctx.closePath();
-    ctx.fillStyle = color + '28';
+    ctx.fillStyle = color + '30';
     ctx.fill();
 
     // Line
     ctx.beginPath();
-    first = true;
+    moved = false;
     data.forEach((val, i) => {
         if (val === null) return;
-        const x = i * step;
-        const y = h - (val / 100) * (h - 4) - 2;
-        if (first) { ctx.moveTo(x, y); first = false; }
-        else ctx.lineTo(x, y);
+        if (!moved) { ctx.moveTo(i * step, scaleY(val)); moved = true; }
+        else ctx.lineTo(i * step, scaleY(val));
     });
     ctx.strokeStyle = color;
     ctx.lineWidth = 2;
@@ -52,14 +55,12 @@ function drawSparkline(canvasId, data, color) {
     ctx.stroke();
 }
 
-function push(arr, val) {
-    arr.push(val);
-    arr.shift();
-}
+function push(arr, val) { arr.push(val); arr.shift(); }
 
 async function fetchStats() {
     try {
         const res = await fetch('/api/server-stats');
+        if (!res.ok) return;
         const d = await res.json();
 
         push(cpuData,  d.cpu);
@@ -73,8 +74,12 @@ async function fetchStats() {
         document.getElementById('cpu-pct').textContent  = d.cpu  + '%';
         document.getElementById('ram-pct').textContent  = d.ram  + '%';
         document.getElementById('disk-pct').textContent = d.disk + '%';
-    } catch (_) {}
+    } catch (e) {
+        console.error('server-stats fetch failed:', e);
+    }
 }
 
-fetchStats();
-setInterval(fetchStats, 2000);
+window.addEventListener('load', function () {
+    fetchStats();
+    setInterval(fetchStats, 2000);
+});

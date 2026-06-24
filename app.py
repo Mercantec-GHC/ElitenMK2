@@ -65,7 +65,7 @@ def login():
             return redirect(url_for('index'))
         except LDAPException:
             flash('Forkert brugernavn eller adgangskode.')
-    return render_template('login.html')
+    return render_template('login.html')    
 
 
 @app.route('/logout')

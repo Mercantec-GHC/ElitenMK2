@@ -5,7 +5,7 @@
 }
 
 body {
-  background: #0d0d0d;
+  background: linear-gradient(to bottom, #3a0000, #550000);
   padding: 2rem 0 0 2rem;
   font-size: 16px;
   height: 100vh;
@@ -155,7 +155,7 @@ h2 {
 }
 
 .chart-header {
-  display: flex;
+  display: flex
   justify-content: space-between;
   align-items: baseline;
   margin-bottom: 12px;
@@ -217,7 +217,7 @@ table {
 }
 
 th {
-  background: #0d0d0d;
+  background: linear-gradient(to bottom, #3a0000, #111);
   color: #444;
   padding: 12px 16px;
   text-align: left;
